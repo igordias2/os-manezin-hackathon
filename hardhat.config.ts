@@ -10,8 +10,14 @@ import "@nomiclabs/hardhat-waffle";
 import "@typechain/hardhat";
 import "hardhat-gas-reporter";
 import "solidity-coverage";
+import { forEach } from "underscore";
 
 dotenv.config();
+
+let mnemonic = process.env.mmemonic;
+const mnemonicAccounts = {
+  mnemonic,
+};
 
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
@@ -25,7 +31,7 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
   );
 
   const wallet = new Wallet(messenger);
-  for (let index = 0; index < 10; index++) {
+  for (let index = 0; index < 1; index++) {
     const account = await wallet.addByMnemonic(mmemonic, index);
     console.log(account);
   }
@@ -36,14 +42,17 @@ task("generateAccounts", "generate a mmemonic", async (taskArgs, hre) => {
   const mmenonic = wallet._mnemonic();
   console.log(mmenonic);
 });
+task("balance", "check balance", async (taskArgs, hre) => {
+  const accounts = await hre.ethers.getSigners();
+  const mmemonic = process.env.mmemonic ? process.env.mmemonic : "";
+  //let wallet = hre.ethers.Wallet.fromMnemonic(mmemonic);
 
-task("Get Balance", "Get Balance", async (taskArgs, hre) => {
-  const mmenonic = process.env.mmemonic ? process.env.mmemonic : "";
-  // const wallet = await hre.ethers.Wallet.fromMnemonic(mmenonic);
-  // wallet.connect();
+  for (let index = 0; index < 1; index++) {
+    const account = accounts[index];
+    const balance = await account.getBalance();
+    console.log(`${account.address} ${balance}`);
+  }
 });
-// You need to export an object to set up your config
-// Go to https://hardhat.org/config/ to learn more
 
 const config: HardhatUserConfig = {
   solidity: "0.8.4",
@@ -51,7 +60,8 @@ const config: HardhatUserConfig = {
   networks: {
     harmony_testnet: {
       chainId: 1666700000,
-      accounts: { mnemonic: process.env.mnemonic ? process.env.mnemonic : "" },
+      // accounts: { mnemonic: process.env.mnemonic ? process.env.mnemonic : "" },
+      accounts: mnemonicAccounts,
       url: "https://api.s0.b.hmny.io",
     },
   },
