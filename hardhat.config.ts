@@ -1,4 +1,8 @@
 import * as dotenv from "dotenv";
+import { Account, Wallet } from "@harmony-js/account";
+
+import { Messenger, HttpProvider } from "@harmony-js/network";
+import { ChainID, ChainType } from "@harmony-js/utils";
 
 import { HardhatUserConfig, task } from "hardhat/config";
 import "@nomiclabs/hardhat-etherscan";
@@ -12,16 +16,31 @@ dotenv.config();
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
 task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
-  const accounts = await hre.ethers.getSigners();
+  const mmemonic = process.env.mmemonic ? process.env.mmemonic : "";
 
-  for (const account of accounts) {
-    console.log(account.address);
+  const messenger = new Messenger(
+    new HttpProvider("https://api.s0.b.hmny.io"),
+    ChainType.Harmony,
+    ChainID.HmyTestnet
+  );
+
+  const wallet = new Wallet(messenger);
+  for (let index = 0; index < 10; index++) {
+    const account = await wallet.addByMnemonic(mmemonic, index);
+    console.log(account);
   }
 });
+
 task("generateAccounts", "generate a mmemonic", async (taskArgs, hre) => {
   const wallet = await hre.ethers.Wallet.createRandom();
   const mmenonic = wallet._mnemonic();
   console.log(mmenonic);
+});
+
+task("Get Balance", "Get Balance", async (taskArgs, hre) => {
+  const mmenonic = process.env.mmemonic ? process.env.mmemonic : "";
+  // const wallet = await hre.ethers.Wallet.fromMnemonic(mmenonic);
+  // wallet.connect();
 });
 // You need to export an object to set up your config
 // Go to https://hardhat.org/config/ to learn more
