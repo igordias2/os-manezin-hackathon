@@ -23,18 +23,8 @@ const mnemonicAccounts = {
 // https://hardhat.org/guides/create-task.html
 task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
   const mmemonic = process.env.mmemonic ? process.env.mmemonic : "";
-
-  const messenger = new Messenger(
-    new HttpProvider("https://api.s0.b.hmny.io"),
-    ChainType.Harmony,
-    ChainID.HmyTestnet
-  );
-
-  const wallet = new Wallet(messenger);
-  for (let index = 0; index < 1; index++) {
-    const account = await wallet.addByMnemonic(mmemonic, index);
-    console.log(account);
-  }
+  const wallet = await hre.ethers.Wallet.fromMnemonic(mmemonic);
+  // console.log(wallet.privateKey);
 });
 
 task("generateAccounts", "generate a mmemonic", async (taskArgs, hre) => {
@@ -44,23 +34,29 @@ task("generateAccounts", "generate a mmemonic", async (taskArgs, hre) => {
 });
 task("balance", "check balance", async (taskArgs, hre) => {
   const accounts = await hre.ethers.getSigners();
-  const mmemonic = process.env.mmemonic ? process.env.mmemonic : "";
   //let wallet = hre.ethers.Wallet.fromMnemonic(mmemonic);
 
   for (let index = 0; index < 1; index++) {
     const account = accounts[index];
     const balance = await account.getBalance();
-    console.log(`${account.address} ${balance}`);
+    // console.log(`${account.address} ${balance} ${}`);
   }
 });
 
 const config: HardhatUserConfig = {
-  solidity: "0.8.4",
+  solidity: {
+    version: "0.8.4",
+    settings: {
+      optimizer: {
+        enabled: true,
+        runs: 1000,
+      },
+    },
+  },
 
   networks: {
     harmony_testnet: {
       chainId: 1666700000,
-      // accounts: { mnemonic: process.env.mnemonic ? process.env.mnemonic : "" },
       accounts: mnemonicAccounts,
       url: "https://api.s0.b.hmny.io",
     },
