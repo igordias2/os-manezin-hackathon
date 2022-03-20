@@ -7,12 +7,13 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/security/Pausable.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
+import "./FavelaItems.sol";
 
-contract FavelaGO is ERC721, ERC721Enumerable, ERC721URIStorage, Pausable, AccessControl {
+contract FavelaGO is ERC721, ERC721Enumerable, ERC721URIStorage, Pausable, AccessControl, FavelaItems {
     using Counters for Counters.Counter;
 
     bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
-    bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
+
     Counters.Counter private _tokenIdCounter;
 
     string private baseURI = "ipfs://";
@@ -21,6 +22,7 @@ contract FavelaGO is ERC721, ERC721Enumerable, ERC721URIStorage, Pausable, Acces
         _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
         _grantRole(PAUSER_ROLE, msg.sender);
         _grantRole(MINTER_ROLE, msg.sender);
+        
     }
 
     function _baseURI() internal view override returns (string memory) {
@@ -39,11 +41,17 @@ contract FavelaGO is ERC721, ERC721Enumerable, ERC721URIStorage, Pausable, Acces
         _unpause();
     }
 
-    function safeMint(address to, string memory uri) public onlyRole(MINTER_ROLE) {
+    function safeMint(address to, uint256 itemId) public {
+
+        FavelaItem memory item = getItem(itemId);
+        require(item.canMint, "Item cannot be minted");
+
         uint256 tokenId = _tokenIdCounter.current();
         _tokenIdCounter.increment();
+
+
         _safeMint(to, tokenId);
-        _setTokenURI(tokenId, uri);
+        _setTokenURI(tokenId, item.ipfsId);
     }
 
     function _beforeTokenTransfer(address from, address to, uint256 tokenId)
