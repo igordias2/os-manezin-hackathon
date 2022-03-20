@@ -12,8 +12,8 @@ const ipfs = [
   "ipfs://QmefQCqppvDHV493UL4BJcYQLaQB95svrqoEmkbXaT88vy", //Cantagalo 2022
   "ipfs://QmSAUijdrmNL8AcV7P5Doxef2STtsoMyJix4deDxLGwpPC", //Cantagalo 2022 Verão
   "ipfs://QmdFyFJAvDKxdwqEB5dd639vh8whtgKisauAou1b7Acwop", //Cantagalo 2022 Outono
-  "ipfs://QmS4H8uBtikXz6v1EVdStiiFJ5C1751G8XKV3enW9Vy1zn", //Cantagalo 2022 Primavera
-  "ipfs://QmWyHYudT7ZwSV558R2Rer3NonJzPpPtexf9bMpAE9vxCf", //Cantagalo 2022 Inverno
+  "ipfs://QmXsgMHZMdVJjg7GY5cxRGtjW7hE1kovZjP15sCTUHJ1rQ", //Cantagalo 2022 Primavera
+  "ipfs://QmQxWiMsWMv3twns76XYuAfqfufRL8evaWifFP45gUemtp", //Cantagalo 2022 Inverno
   "ipfs://QmRbbP2BdJbQoNEJK4pwVpA5adRnRdk8hg8ioD5VqYgN21", //PAVÃO PAVÃOZINHO VERÃO
   "ipfs://QmTcPJk1QqBsTPvRUvZWH9nJTGm7EpxECyT3yGm7qqZnGX", //Pavão Pavãozinho Primavera
   "ipfs://QmPTczGRCDDrrXMhzmHrLW5tZy2yMs2EDBtT7MKgt9zstz", //Pavão Pavãozinho Outono
