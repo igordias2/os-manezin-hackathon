@@ -8,6 +8,7 @@ abstract contract FavelaItems is AccessControl {
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
 
     struct FavelaItem {
+        uint256 id;
         string ipfsId;
         bool canMint;
     }
@@ -19,13 +20,16 @@ abstract contract FavelaItems is AccessControl {
 
     function AddItem(string memory _ipfsId, bool _canMint) public onlyRole(MINTER_ROLE){
         
+        uint256 lengthBefore = items.length;
+
         FavelaItem memory item = FavelaItem({
+            id: lengthBefore,
             ipfsId: _ipfsId,
             canMint: _canMint
         });
 
         items.push(item);
-        emit AddedItem(item, items.length);
+        emit AddedItem(item, lengthBefore + 1);
     }
 
     function getItem(uint256 _index) public view returns (FavelaItem memory) {
@@ -42,6 +46,7 @@ abstract contract FavelaItems is AccessControl {
         require(length >= _index, "Index doenst exists");
         
         FavelaItem memory item = FavelaItem({
+            id : _index,
             ipfsId: _ipfsId,
             canMint: _canMint
         });

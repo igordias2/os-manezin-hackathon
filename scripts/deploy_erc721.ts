@@ -14,11 +14,11 @@ const ipfs = [
   "ipfs://QmdFyFJAvDKxdwqEB5dd639vh8whtgKisauAou1b7Acwop", //Cantagalo 2022 Outono
   "ipfs://QmXsgMHZMdVJjg7GY5cxRGtjW7hE1kovZjP15sCTUHJ1rQ", //Cantagalo 2022 Primavera
   "ipfs://QmQxWiMsWMv3twns76XYuAfqfufRL8evaWifFP45gUemtp", //Cantagalo 2022 Inverno
-  "ipfs://QmRbbP2BdJbQoNEJK4pwVpA5adRnRdk8hg8ioD5VqYgN21", //PAVÃO PAVÃOZINHO VERÃO
-  "ipfs://QmTcPJk1QqBsTPvRUvZWH9nJTGm7EpxECyT3yGm7qqZnGX", //Pavão Pavãozinho Primavera
-  "ipfs://QmPTczGRCDDrrXMhzmHrLW5tZy2yMs2EDBtT7MKgt9zstz", //Pavão Pavãozinho Outono
-  "ipfs://QmYJ71Eck4Df2iFZsuhjmtsRP6F1tVimYsgf4wBhoCeTPz", //Pavão Pavãozinho Inverno
-  "ipfs://QmXuHwS9wAqSyDKkLG4n5CPLr2cRjMHGck5F9xNno5DLMZ", //PAVÃO PAVÃOZINHO
+  "ipfs://QmdYgt25L353NsufGn4G8ZxB8kEWz8vkzh9uWvD6pMCumJ", //PAVÃO PAVÃOZINHO VERÃO
+  "ipfs://QmQJnHsUTJNUS5XZMgs9z1WC4YceNi4vA1swYGxq3dF9aU", //Pavão Pavãozinho Primavera
+  "ipfs://QmYf8i3y9MzZ57bh9xp1UYGvquMj3ssdQNg1jhiRBEGN69", //Pavão Pavãozinho Outono
+  "ipfs://QmTnFefc2omMs7YVA4KiwComFWaqL9hKHdchKc78HXvvkY", //Pavão Pavãozinho Inverno
+  "ipfs://QmeoW25Yy7nNyVsfd2Ao2kQi5y4rfw76KYTiYTJJHa3bEL", //PAVÃO PAVÃOZINHO
   // "ipfs://",
 ];
 async function main() {
@@ -52,6 +52,7 @@ async function main() {
   console.log("finished");
 }
 function delay(ms: number) {
+  console.log(`Starting Delay ${ms}`);
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 // We recommend this pattern to be able to use async/await everywhere
